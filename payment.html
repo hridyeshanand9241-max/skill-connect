@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillConnect | Payment</title>
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="logo" href="dashboard.html">SkillConnect</a>
+    <span class="secure">🔒 Demo Payment</span>
+</header>
+
+<div class="demo-banner">DEMO MODE: no real money is charged. Never enter real card details.</div>
+
+<main class="checkout">
+
+    <section class="card">
+        <h1>Choose payment method</h1>
+
+        <div class="methods">
+            <label class="method active"><input type="radio" name="method" value="UPI" checked><span>📱 UPI</span></label>
+            <label class="method"><input type="radio" name="method" value="Card"><span>💳 Card</span></label>
+            <label class="method"><input type="radio" name="method" value="Net Banking"><span>🏦 Net Banking</span></label>
+        </div>
+
+        <form id="payForm" novalidate>
+
+            <div class="panel" data-panel="UPI">
+                <label for="upiId">UPI ID</label>
+                <input id="upiId" type="text" placeholder="yourname@upi" autocomplete="off">
+                <small class="hint">Test: <code>success@upi</code> passes, <code>fail@upi</code> fails.</small>
+            </div>
+
+            <div class="panel" data-panel="Card" hidden>
+                <label for="cardName">Name on card</label>
+                <input id="cardName" type="text" placeholder="Full name" autocomplete="off">
+
+                <label for="cardNumber">Card number</label>
+                <input id="cardNumber" type="text" inputmode="numeric" placeholder="4111 1111 1111 1111" autocomplete="off">
+
+                <div class="row">
+                    <div>
+                        <label for="cardExpiry">Expiry (MM/YY)</label>
+                        <input id="cardExpiry" type="text" inputmode="numeric" placeholder="12/30" autocomplete="off">
+                    </div>
+                    <div>
+                        <label for="cardCvv">CVV</label>
+                        <input id="cardCvv" type="password" inputmode="numeric" placeholder="123" autocomplete="off">
+                    </div>
+                </div>
+                <small class="hint">Test card: <code>4111 1111 1111 1111</code> passes, <code>4000 0000 0000 0002</code> fails. Any future expiry and any 3-digit CVV.</small>
+            </div>
+
+            <div class="panel" data-panel="Net Banking" hidden>
+                <label for="bank">Select your bank</label>
+                <select id="bank">
+                    <option value="">Choose a bank</option>
+                    <option>State Bank of India</option>
+                    <option>HDFC Bank</option>
+                    <option>ICICI Bank</option>
+                    <option>Punjab National Bank</option>
+                    <option>Axis Bank</option>
+                    <option value="FAIL">Demo Bank (always fails)</option>
+                </select>
+            </div>
+
+            <p id="formError" class="error" role="alert"></p>
+
+            <button type="submit" id="payButton" class="pay-btn">Pay</button>
+            <a class="back-link" href="dashboard.html">← Back to courses</a>
+        </form>
+    </section>
+
+    <aside class="card summary">
+        <h2>Order summary</h2>
+        <div class="course-line">
+            <div class="course-icon" id="courseIcon">📚</div>
+            <div>
+                <strong id="courseName">Loading…</strong>
+                <p id="courseCategory"></p>
+            </div>
+        </div>
+        <div class="line"><span>Course price</span><span id="coursePrice">₹0</span></div>
+        <div class="line"><span>Platform fee</span><span>₹0</span></div>
+        <div class="line total"><span>Total</span><span id="totalPrice">₹0</span></div>
+    </aside>
+
+</main>
+
+<!-- Processing overlay -->
+<div class="overlay" id="overlay" hidden>
+    <div class="modal">
+        <div class="spinner"></div>
+        <p id="overlayText">Processing…</p>
+        <small>Please do not close or refresh this page.</small>
+    </div>
+</div>
+
+<!-- Result popup -->
+<div class="overlay" id="popup" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <div class="result-icon" id="popupIcon"></div>
+        <h2 id="popupTitle"></h2>
+        <p id="popupText"></p>
+        <dl class="receipt" id="receipt"></dl>
+        <div class="popup-actions" id="popupActions"></div>
+    </div>
+</div>
+
+<script src="payment.js"></script>
+</body>
+</html>
